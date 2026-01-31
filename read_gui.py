@@ -23,10 +23,13 @@ def client(sock):
             return
         values = struct.unpack("i"*NODES, data)
         print("Received:", values)
+        values[0] //= 5
+        values[1] //= 5
 
         # write to shared memory using array slice
         arr = array.array('i', values)
         shm_buf[:NODES*4] = arr.tobytes()
+        
         print("Updated shared memory:", values)
     
 try:
